@@ -187,6 +187,19 @@ return {
   },
 
   -- =====================
+  -- plantuml: ブラウザでライブプレビュー
+  -- =====================
+  {
+    "weirongxu/plantuml-previewer.vim",
+    dependencies = {
+      "tyru/open-browser.vim",
+      "aklt/plantuml-syntax",
+    },
+    ft = { "plantuml" },
+    cmd = { "PlantumlOpen", "PlantumlSave", "PlantumlStart", "PlantumlStop" },
+  },
+
+  -- =====================
   -- markdown-preview
   -- =====================
   {

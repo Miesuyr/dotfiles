@@ -14,6 +14,8 @@
     tmux
     nodejs_22
     nodePackages."@antfu/ni"
+    jdk
+    graphviz
   ];
 
   xdg.configFile = {
