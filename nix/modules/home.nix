@@ -13,9 +13,10 @@
     starship
     tmux
     nodejs_22
-    nodePackages."@antfu/ni"
+    ni
     jdk
     graphviz
+    cf
   ];
 
   xdg.configFile = {
