@@ -18,6 +18,8 @@
     graphviz
     cf
     hunk
+    ast-grep
+    hurl
   ];
 
   xdg.configFile = {
