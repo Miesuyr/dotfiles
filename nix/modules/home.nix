@@ -17,6 +17,7 @@
     jdk
     graphviz
     cf
+    hunk
   ];
 
   xdg.configFile = {
