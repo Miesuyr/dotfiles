@@ -20,6 +20,7 @@
     hunk
     ast-grep
     hurl
+    delta
   ];
 
   xdg.configFile = {
