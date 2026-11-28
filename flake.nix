@@ -27,24 +27,33 @@
       ];
     };
 
-    mkDarwin = { username, system ? "aarch64-darwin" }: nix-darwin.lib.darwinSystem {
+    mkDarwin = { username, uid, system ? "aarch64-darwin" }: nix-darwin.lib.darwinSystem {
       inherit system;
       modules = [
         ./nix/modules/darwin.nix
         home-manager.darwinModules.home-manager
-        {
+        ({ pkgs, ... }: {
           system.primaryUser = username;
-          users.users.${username}.home = "/Users/${username}";
+          # knownUsers に入れないと nix-darwin はログインシェルを変更しない
+          users.knownUsers = [ username ];
+          users.users.${username} = {
+            inherit uid;
+            home = "/Users/${username}";
+            shell = pkgs.fish;
+          };
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "backup";
           home-manager.users.${username} = import ./nix/modules/home.nix;
-        }
+        })
       ];
     };
   in {
     # macOS: sudo nix run nix-darwin -- switch --flake .#default --impure
-    darwinConfigurations.default = mkDarwin { username = builtins.getEnv "SUDO_USER"; };
+    darwinConfigurations.default = mkDarwin {
+      username = builtins.getEnv "SUDO_USER";
+      uid = nixpkgs.lib.toInt (builtins.getEnv "SUDO_UID");
+    };
 
     # Linux/WSL: nix run .#switch
     homeConfigurations.default = mkHome { system = "x86_64-linux"; username = builtins.getEnv "USER"; };
