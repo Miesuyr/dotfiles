@@ -1,3 +1,6 @@
+set -gx LANG ja_JP.UTF-8
+set -gx LC_ALL ja_JP.UTF-8
+
 fish_add_path $HOME/.nix-profile/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/bin
